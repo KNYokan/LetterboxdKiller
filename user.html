@@ -4,62 +4,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mon Compte</title>
-    <style>
-      
-      .profile-pic {
-        width: 150px;
-        height: 150px; 
-        border-radius: 50%; 
-        object-fit: cover;
-        margin-bottom: 20px; 
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <header class="Header">
+      <div class="header-left">
+        <h1>EX'PRESS</h1>
+      </div>
+      <div class="header-right">
+        <a href="index.html">
+          <button class="home-btn">Home</button>
+        </a>
+        <a href="research.html">
+          <button class="film-btn">Films</button>
+        </a>
+        <a href="notes.html">
+          <button class="note-btn">Notes</button>
+        </a>
+      </div>
+    </header>
 
-     
-      <div class="profile-header">
-        
-        <img src="JV.jpg" alt="Photo de profil" class="profile-pic">
-        <div class="profile-info">
-          <h2>Nom de l'Utilisateur</h2>
-          <p>Bienvenue sur votre profil !</p>
-        </div>
-      </div>
-    <div class="container">
-      <div class="section">
-        <h3>Films likés</h3>
-        <div class="card">
-          <ul class="horizontal-list">
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </div>
-      </div>
+    <main>
+      <h2 id="welcomeMessage"></h2>
+      <button id="logoutButton">Déconnexion</button>
 
-      <div class="section">
-        <h3>Commentaires les plus likés</h3>
-        <div class="card">
-          <ul class="horizontal-list">
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </div>
-      </div>
+      <section>
+        <h3>Mes Commentaires</h3>
+        <div id="commentsContainer"></div>
+      </section>
+    </main>
 
-      <div class="section">
-        <h3>Wishlist - Films à venir</h3>
-        <div class="card">
-          <ul class="horizontal-list">
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <script>
+      async function loadUserData() {
+        const userResponse = await fetch("http://localhost:3000/current-user");
+        if (userResponse.ok) {
+          const user = await userResponse.json();
+          document.getElementById(
+            "welcomeMessage"
+          ).innerText = `Bienvenue, ${user.user.username}`;
+
+          const commentsResponse = await fetch(
+            "http://localhost:3000/user/comments"
+          );
+          const comments = await commentsResponse.json();
+
+          const commentsContainer =
+            document.getElementById("commentsContainer");
+          commentsContainer.innerHTML = comments
+            .map(
+              (comment) => `
+                <div>
+                  <h4>${comment.movie_title}</h4>
+                  <p>${comment.comment}</p>
+                  <small>${new Date(
+                    comment.created_at
+                  ).toLocaleString()}</small>
+                </div>
+              `
+            )
+            .join("");
+        } else {
+          window.location.href = "login.html";
+        }
+      }
+
+      document
+        .getElementById("logoutButton")
+        .addEventListener("click", async () => {
+          await fetch("http://localhost:3000/logout", { method: "POST" });
+          window.location.href = "login.html";
+        });
+
+      loadUserData();
+    </script>
   </body>
 </html>

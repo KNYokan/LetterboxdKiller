@@ -7,26 +7,77 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="main-container">
-      <!-- Barre de recherche -->
-      <div class="search-bar">
+    <header class="Header">
+      <div class="header-left">
+        <h1>EX'PRESS</h1>
+      </div>
+      <div class="header-right">
+        <a href="index.html">
+          <button class="home-btn">Home</button>
+        </a>
+        <a href="research.html">
+          <button class="film-btn">Films</button>
+        </a>
+        <a href="notes.html">
+          <button class="note-btn">Notes</button>
+        </a>
+        <a href="login.html">
+          <button class="connexion-btn">Se Connecter</button>
+        </a>
+        <a href="user.html" class="profil-picture">
+          <img
+            src="images/photo_profil_Harley_Quinn.png"
+            alt="profil-picture"
+          />
+        </a>
+      </div>
+    </header>
+
+    <!-- Barre de recherche -->
+    <section class="researh bar">
+      <form action="research.html" method="get">
         <input
           type="text"
-          placeholder="Rechercher un film..."
-          id="searchInput"
+          name="query"
+          placeholder="Rechercher un film"
+          required
+          id="research-bar"
         />
-        <button id="searchButton">Rechercher</button>
-      </div>
+      </form>
+    </section>
 
-      <!-- Galerie de films -->
+    <!-- Résultats de recherche -->
+    <main class="main-container">
+      <h2>Résultats de la recherche</h2>
       <div class="movie-gallery"></div>
+    </main>
 
-      <!-- Détails du film -->
-      <div class="movie-details" id="movieDetails">
-        <!-- Les détails seront insérés dynamiquement -->
-      </div>
-    </div>
+    <!-- Détails du film -->
+    <div class="movie-details" id="movieDetails"></div>
 
     <script src="script.js"></script>
+    <script>
+      function displayMovies(movies) {
+        const movieGallery = document.querySelevtor(".movie-gallery");
+        movieGallery.innerHTML = "";
+
+        movies.froEach((movie) => {
+          const movieItem = document.createElement("div");
+          movieItem.classList.add("movie-item");
+
+          const poster =
+            movie.poster !== "N/A"
+              ? movie.poster
+              : "https://via.placeholder.com/150x220?text=Pas+d'image";
+          movieItem.innerHTML = (
+            <a href="film.html?filmId=${movie.imdbID}">
+              <img src="${poster}" alt="${movie.Title}">
+                <p>${movie.Title}</p>
+              </img>
+            </a>
+          );
+        });
+      }
+    </script>
   </body>
 </html>

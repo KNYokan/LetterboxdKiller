@@ -1,16 +1,14 @@
-const API_KEY = "dc66224e"; // Remplace par ta clé API
-const searchInput = document.getElementById("searchInput");
-const searchButton = document.getElementById("searchButton");
+const API_KEY = "dc66224e";
+const searchInput = document.getElementById("research-bar");
+const searchButton = document.getElementById("searchButton"); // Assurez-vous que ce bouton existe dans le HTML
 const movieGallery = document.querySelector(".movie-gallery");
 const movieDetails = document.getElementById("movieDetails");
 
-// Fonction pour rechercher des films avec LocalStorage
 async function searchMovies(query) {
-  // Vérifier dans LocalStorage
   const cachedMovies = localStorage.getItem(`search-${query}`);
   if (cachedMovies) {
     console.log("Résultats récupérés depuis LocalStorage");
-    displayMovies(JSON.parse(cachedMovies)); // Afficher les films
+    displayMovies(JSON.parse(cachedMovies));
     return;
   }
 
@@ -22,7 +20,6 @@ async function searchMovies(query) {
     const data = await response.json();
 
     if (data.Response === "True") {
-      // Stocker les résultats dans LocalStorage
       let currentStorage = JSON.parse(localStorage.getItem("films")) || [];
 
       let newFilms = JSON.stringify(data.Search);
@@ -31,7 +28,7 @@ async function searchMovies(query) {
 
       localStorage.setItem("films", JSON.stringify(currentStorage));
 
-      displayMovies(data.Search); // Afficher les films
+      displayMovies(data.Search);
     } else {
       movieGallery.innerHTML = `<p>Aucun film trouvé pour "${query}".</p>`;
     }
@@ -42,21 +39,20 @@ async function searchMovies(query) {
 }
 
 window.addEventListener("DOMContentLoaded", function () {
-  const defaultQuery = "Batman"; // Exemple de requête par défaut
+  const defaultQuery = "Spider-Man";
   const cachedMovies = localStorage.getItem(`search-${defaultQuery}`);
 
   if (cachedMovies) {
     console.log("Affichage des films par défaut depuis LocalStorage...");
-    displayMovies(JSON.parse(cachedMovies)); // Affiche les films depuis LocalStorage
+    displayMovies(JSON.parse(cachedMovies));
   } else {
     console.log("Chargement des films par défaut depuis l'API...");
-    searchMovies(defaultQuery); // Requête API si les données ne sont pas en cache
+    searchMovies(defaultQuery);
   }
 });
 
-// Fonction pour afficher les résultats de recherche
 function displayMovies(movies) {
-  movieGallery.innerHTML = ""; // Vider la galerie
+  movieGallery.innerHTML = "";
 
   movies.forEach((movie) => {
     const movieItem = document.createElement("div");
@@ -78,13 +74,11 @@ function displayMovies(movies) {
   });
 }
 
-// Fonction pour récupérer les détails d'un film avec LocalStorage
 async function getMovieDetails(movieId) {
-  // Vérifier dans LocalStorage
   const cachedDetails = localStorage.getItem(`movie-${movieId}`);
   if (cachedDetails) {
     console.log("Détails récupérés depuis LocalStorage");
-    renderMovieDetails(JSON.parse(cachedDetails)); // Afficher les détails
+    renderMovieDetails(JSON.parse(cachedDetails));
     return;
   }
 
@@ -96,9 +90,8 @@ async function getMovieDetails(movieId) {
     const data = await response.json();
 
     if (data.Response === "True") {
-      // Stocker les détails dans LocalStorage
       localStorage.setItem(`movie-${movieId}`, JSON.stringify(data));
-      renderMovieDetails(data); // Afficher les détails
+      renderMovieDetails(data);
     } else {
       movieDetails.innerHTML = `<p>Impossible de charger les détails du film.</p>`;
     }
@@ -108,7 +101,6 @@ async function getMovieDetails(movieId) {
   }
 }
 
-// Fonction pour afficher les détails d'un film
 function renderMovieDetails(data) {
   movieDetails.innerHTML = `
     <h2>${data.Title} (${data.Year})</h2>
@@ -126,14 +118,61 @@ function renderMovieDetails(data) {
     </div>
   `;
 
-  setupStarRating(); // Ajouter le système de notation
+  setupStarRating();
 }
 
-// Écouteur pour le bouton de recherche
 searchButton.addEventListener("click", () => {
   const query = searchInput.value.trim();
   if (query) {
     searchMovies(query);
-    movieDetails.innerHTML = ""; // Réinitialiser les détails
+    movieDetails.innerHTML = "";
   }
 });
+
+/* Connexion check */
+document.addEventListener("DOMContentLoaded", () => {
+  const profilePicture = document.querySelector(".profil-picture img"); // Corrigé le sélecteur
+
+  const userProfileImage = "https://example.com/path/to/user-profile.jpg";
+
+  profilePicture.src = userProfileImage || "images/default-profile.png"; // Assurez-vous que l'image existe
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  function isUserLoggedIn() {
+    return localStorage.getItem("userLoggedIn") === "true";
+  }
+
+  const profileLink = document.getElementById("profile-link"); // Assurez-vous que cet ID existe
+
+  profileLink.addEventListener("click", function (event) {
+    if (isUserLoggedIn()) {
+      window.location.href = "login.html";
+    } else {
+      window.location.href = "user.html";
+    }
+  });
+});
+
+/* RECHERCHE */
+function displayMovies(movies) {
+  const movieGallery = document.querySelector(".movie-gallery");
+  movieGallery.innerHTML = "";
+
+  movies.forEach((movie) => {
+    const movieItem = document.createElement("div");
+    movieItem.classList.add("movie-item");
+
+    const poster =
+      movie.Poster !== "N/A"
+        ? movie.Poster
+        : "https://via.placeholder.com/150x220?text=Pas+d'image";
+    movieItem.innerHTML = `
+      <a href="film.html?filmId=${movie.imdbID}">
+        <img src="${poster}" alt="${movie.Title}">
+        <p>${movie.Title}</p>
+      </a>
+    `;
+    movieGallery.appendChild(movieItem);
+  });
+}

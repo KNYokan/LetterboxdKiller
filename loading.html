@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading Screen</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="loading">
+      <div class="loading-title">
+        <img src="images/Load-logo.png" />
+        <div class="loader"></div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", function () {
+        const loading = document.querySelector(".loading");
+
+        setTimeout(() => {
+          loading.style.transition = "opacity 1s ease-out";
+          loading.style.opacity = 0;
+
+          setTimeout(() => {
+            loading.style.display = "none";
+          }, 1000);
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

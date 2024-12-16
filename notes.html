@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes de Films</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="Header">
+      <div class="header-left"></div>
+      <div class="header-right">
+        <a href="index.html">
+          <button class="home-btn">Home</button>
+        </a>
+        <a href="research.html">
+          <button class="film-btn">Films</button>
+        </a>
+        <a href="notes.html">
+          <button class="note-btn">Notes</button>
+        </a>
+        <a href="login.html">
+          <button class="connexion-btn">Se Connecter</button>
+        </a>
+        <a href="user.html" class="profil-picture">
+          <img
+            src="images/photo_profil_Harley_Quinn.png"
+            alt="profil-picture"
+          />
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <h1>Notes et Commentaires</h1>
+
+      <form id="note" action="" class="container">
+        <h2>Laissez votre commentaire</h2>
+
+        <div>
+          <label for="userName">Film :</label>
+          <input
+            type="text"
+            id="userName"
+            placeholder="Nom du Film"
+            class="comment-box"
+          />
+        </div>
+
+        <div class="rating">
+          <label for="userNote">Votre note :</label>
+          <div class="rating" id="rating">
+            <a href="#" class="rate-link" data-value="1">
+              <img
+                class="star-image"
+                src="images/body-green.png"
+                alt="1 étoile"
+              />
+            </a>
+            <a href="#" class="rate-link" data-value="2">
+              <img
+                class="star-image"
+                src="images/body-green.png"
+                alt="2 étoiles"
+              />
+            </a>
+            <a href="#" class="rate-link" data-value="3">
+              <img
+                class="star-image"
+                src="images/body-green.png"
+                alt="3 étoiles"
+              />
+            </a>
+            <a href="#" class="rate-link" data-value="4">
+              <img
+                class="star-image"
+                src="images/body-green.png"
+                alt="4 étoiles"
+              />
+            </a>
+            <a href="#" class="rate-link" data-value="5">
+              <img
+                class="star-image"
+                src="images/head-green.png"
+                alt="5 étoiles"
+              />
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <label for="userComment">Votre commentaire :</label>
+          <textarea
+            id="userComment"
+            rows="4"
+            class="comment-box"
+            placeholder="Écrivez votre commentaire ici..."
+          ></textarea>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="submitComment()">
+          Envoyer
+        </button>
+
+        <div class="comment-section">
+          <h2>Commentaires des autres utilisateurs :</h2>
+          <div id="commentsList"></div>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      let rating = 0;
+
+      const rateLinks = document.querySelectorAll(".rate-link");
+      const noteDisplay = document.getElementById("userNote");
+
+      rateLinks.forEach((link) => {
+        link.addEventListener("mouseover", function () {
+          const hoverValue = this.getAttribute("data-value");
+          updateRating(hoverValue);
+        });
+
+        link.addEventListener("mouseout", function () {
+          updateRating(rating);
+        });
+
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          rating = this.getAttribute("data-value");
+          updateRating(rating);
+          noteDisplay.value = rating;
+        });
+      });
+
+      function updateRating(selectedRating) {
+        rateLinks.forEach((link) => {
+          const linkValue = link.getAttribute("data-value");
+          const image = link.querySelector("img");
+
+          if (linkValue <= selectedRating) {
+            if (linkValue == 5) {
+              image.src = image.src.replace(
+                "images/head-green.png",
+                "images/head-green.png" // Aucune modification si l'image existe
+              );
+            } else {
+              image.src = image.src.replace(
+                "images/body-green.png",
+                "images/body-green.png" // Aucune modification si l'image existe
+              );
+            }
+          } else {
+            if (linkValue == 5) {
+              image.src = image.src.replace(
+                "images/head-green.png",
+                "images/head-green.png" // Aucune modification si l'image existe
+              );
+            } else {
+              image.src = image.src.replace(
+                "images/body-green.png",
+                "images/body-green.png" // Aucune modification si l'image existe
+              );
+            }
+          }
+        });
+      }
+
+      function loadComments() {
+        const comments = JSON.parse(localStorage.getItem("comments")) || [];
+        const commentsList = document.getElementById("commentsList");
+        commentsList.innerHTML = "";
+
+        comments.forEach((comment) => {
+          const commentElement = document.createElement("div");
+          commentElement.classList.add("comment");
+          commentElement.innerHTML = `
+            <div class="user-info">${comment.userName}</div>
+            <div class="note">Note: ${comment.userNote}/5</div>
+            <div>${comment.userComment}</div>
+          `;
+          commentsList.appendChild(commentElement);
+        });
+      }
+
+      function submitComment() {
+        const userName = document.getElementById("userName").value.trim();
+        const userNote = rating;
+        const userComment = document.getElementById("userComment").value.trim();
+
+        if (userName === "" || userNote === 0 || userComment === "") {
+          alert("Veuillez remplir tous les champs.");
+          return;
+        }
+
+        const newComment = {
+          userName: userName,
+          userNote: userNote,
+          userComment: userComment,
+        };
+
+        const comments = JSON.parse(localStorage.getItem("comments")) || [];
+        comments.push(newComment);
+        localStorage.setItem("comments", JSON.stringify(comments));
+
+        document.getElementById("userName").value = "";
+        document.getElementById("userComment").value = "";
+        rating = 0;
+        updateRating(rating);
+
+        loadComments();
+      }
+
+      window.onload = loadComments;
+    </script>
+  </body>
+</html>

@@ -4,80 +4,119 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EX'PRESS</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style1.css" />
-    <section class="bouton-user">
-      <style>
-        .round-button {
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: url("JV.jpg") no-repeat center center;
-          background-size: cover;
-          text-decoration: none;
-        }
-      </style>
-    </section>
-  </head>
-  <body>
-    <header class="Header">
-      <div class="header-left">
-        <h1>EX'PRESS</h1>
-      </div>
-      <div class="header-center">
-        <form action="research.html" method="get">
-          <input
-            type="text"
-            name="query"
-            placeholder="Rechercher un film"
-            required
-          />
-        </form>
-      </div>
 
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="home">
+    <header class="Header">
+      <div class="logo">
+        <img
+          class="logo"
+          src="images/logo-express-complet-3.png"
+          alt="Logo EX'PRESS"
+        />
+      </div>
       <div class="header-right">
+        <a href="index.html">
+          <button class="home-btn">Home</button>
+        </a>
+        <a href="research.html">
+          <button class="film-btn">Films</button>
+        </a>
+        <a href="notes.html">
+          <button class="note-btn">Notes</button>
+        </a>
         <a href="login.html">
           <button class="connexion-btn">Se Connecter</button>
         </a>
-        <a href="user.html" class="round-button"></a>
+        <a href="user.html" class="profil-picture">
+          <img
+            src="images/photo_profil_Harley_Quinn.png"
+            alt="Photo de profil"
+          />
+        </a>
       </div>
     </header>
-    <section class="Home">
-      <h2>Bienvenue</h2>
-      <p>
-        Retrouvez l'intégralité de l'actualité des sorties cinéma. Partagez vos
-        avis et recommendations.
-      </p>
+
+    <section class="banner">
+      <div class="banner-slider">
+        <img src="images/jokerbanner.png" alt="Bannière 1" />
+        <img src="images/bladerunner-banner.png" alt="Bannière 2" />
+        <img src="images/django.png" alt="Bannière 3" />
+        <img src="images/trueman-banner.png" alt="Bannière 4" />
+        <img src="images/forestgump-banner.png" alt="Bannière 5" />
+      </div>
+      <div class="banner-indicators">
+        <span class="indicator" data-index="0"></span>
+        <span class="indicator" data-index="1"></span>
+        <span class="indicator" data-index="2"></span>
+        <span class="indicator" data-index="3"></span>
+        <span class="indicator" data-index="4"></span>
+      </div>
+
+      <form class="banner-search" action="research.html" method="get">
+        <input
+          type="text"
+          name="query"
+          placeholder="Rechercher un film"
+          required
+          id="banner-bar"
+        />
+      </form>
     </section>
-    <section class="New films">
-      <h2>Nouvautés</h2>
-      <img
-        class=""
-        src=""
-        srcset="/ 100w, / 320w"
-        sizes="(max-width: 800px) 80px, 280px"
-        alt=""
-        loading="lazy"
-      />
-    </section>
-    <section class="Top films">
-      <h2>Meilleures notes</h2>
-      <img
-        class=""
-        src=""
-        srcset="/ 100w, / 320w"
-        sizes="(max-width: 800px) 80px, 280px"
-        alt=""
-        loading="lazy"
-      />
-    </section>
-    <section class="Bug report">
+
+    <div id="mostLiked" class="carousel-container">
+      <h2 class="carousel-container__title">Plus likés</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+
+    <div id="action" class="carousel-container">
+      <h2 class="carousel-container__title">Action</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+
+    <div id="sciFi1" class="carousel-container">
+      <h2 class="carousel-container__title">Science-Fiction</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+
+    <div id="comedy" class="carousel-container">
+      <h2 class="carousel-container__title">Comédie</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+
+    <div id="horror" class="carousel-container">
+      <h2 class="carousel-container__title">Horreur</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+
+    <div id="thriller" class="carousel-container">
+      <h2 class="carousel-container__title">Thriller</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+
+    <div id="animation" class="carousel-container">
+      <h2 class="carousel-container__title">Film d'animation</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+
+    <section class="bug-report container">
       <form>
-        <label>Signaler</label>
+        <label for="report-a-bug">Signaler un bug</label>
         <select name="bug" id="report-a-bug">
           <option value="comments">Commentaires</option>
           <option value="inappropriate">Contenu inapproprié</option>
@@ -88,9 +127,12 @@
           <option value="research">Recherche</option>
           <option value="autre">Autre</option>
         </select>
-        <input type text=""
+        <textarea placeholder="Décrivez le problème ici"></textarea>
       </form>
     </section>
+
+    <footer>@2024 - EX'PRESS</footer>
+
+    <script src="galery.js"></script>
   </body>
-  <footer>@2024 - EX'PRESS</footer>
 </html>
