@@ -3,29 +3,94 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>EX'PRESS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style1.css" />
+    <section class="bouton-user">
+      <style>
+        .round-button {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: url("JV.jpg") no-repeat center center;
+          background-size: cover;
+          text-decoration: none;
+        }
+      </style>
+    </section>
   </head>
   <body>
-    <div class="header">
-        <div class="header-right"
-        <h1>TEST</h1>
-         </div>
-    <h1>EX'PRESS</h1>
-    <br /><br /><br />
-    <h3>Bienvenue</h3>
-    <p>
-      Retrouvez l'intégralité de l'actualité des sorties cinéma et partages
-      votre avis et vos recommendations.
-    </p>
-    <br /><br /><br />
-    <h2>Nouvautés</h2>
-    <img
-      class=""
-      src=""
-      srcset="/ 100w, / 320w"
-      sizes="(max-width: 800px) 80px, 280px"
-      alt=""
-      loading="lazy"
-    />
+    <header class="Header">
+      <div class="header-left">
+        <h1>EX'PRESS</h1>
+      </div>
+      <div class="header-center">
+        <form action="research.html" method="get">
+          <input
+            type="text"
+            name="query"
+            placeholder="Rechercher un film"
+            required
+          />
+        </form>
+      </div>
+
+      <div class="header-right">
+        <a href="login.html">
+          <button class="connexion-btn">Se Connecter</button>
+        </a>
+        <a href="user.html" class="round-button"></a>
+      </div>
+    </header>
+    <section class="Home">
+      <h2>Bienvenue</h2>
+      <p>
+        Retrouvez l'intégralité de l'actualité des sorties cinéma. Partagez vos
+        avis et recommendations.
+      </p>
+    </section>
+    <section class="New films">
+      <h2>Nouvautés</h2>
+      <img
+        class=""
+        src=""
+        srcset="/ 100w, / 320w"
+        sizes="(max-width: 800px) 80px, 280px"
+        alt=""
+        loading="lazy"
+      />
+    </section>
+    <section class="Top films">
+      <h2>Meilleures notes</h2>
+      <img
+        class=""
+        src=""
+        srcset="/ 100w, / 320w"
+        sizes="(max-width: 800px) 80px, 280px"
+        alt=""
+        loading="lazy"
+      />
+    </section>
+    <section class="Bug report">
+      <form>
+        <label>Signaler</label>
+        <select name="bug" id="report-a-bug">
+          <option value="comments">Commentaires</option>
+          <option value="inappropriate">Contenu inapproprié</option>
+          <option value="display">Affichage</option>
+          <option value="performance">Performance</option>
+          <option value="recommandations">Recommandations</option>
+          <option value="dehaviour">Comportement en dehors de EX'PRESS</option>
+          <option value="research">Recherche</option>
+          <option value="autre">Autre</option>
+        </select>
+        <input type text=""
+      </form>
+    </section>
   </body>
+  <footer>@2024 - EX'PRESS</footer>
 </html>

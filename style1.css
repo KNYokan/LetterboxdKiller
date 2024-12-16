@@ -1,0 +1,106 @@
+/* BASES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #444;
+}
+
+.header-left {
+  color: #fff;
+  font-size: 24px;
+  align-items: left;
+  justify-content: left;
+}
+
+.header-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-center form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-center input {
+  background-color: #181c14;
+  color: white;
+  border: 2px solid #181c14;
+  border-radius: 1px;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-right: 2px;
+  width: 800%;
+}
+
+.header-center button {
+  background-color: #181c14;
+  color: white;
+  border: 1px solid white;
+  border-radius: 1px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 60%;
+}
+
+.header-center button:hover {
+  background-color: #444;
+}
+
+.header-right {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.header-right a {
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.connexion-btn {
+  background-color: #181c14;
+  color: white;
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.connexion-btn:hover {
+  background-color: #444;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+}
+body {
+  background: #444;
+  color: blanchedalmond;
+}
